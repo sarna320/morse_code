@@ -20,4 +20,5 @@ for i in range(0, len(data)):
             encrypted += " / "  # after checking all problem we add "/ "
     elif data[i] == "\n":  # for new line add new line
         encrypted += "\n"
+
 print(encrypted)
