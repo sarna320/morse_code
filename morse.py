@@ -1,22 +1,20 @@
 import sys
-import os
 import morse_dict as md
+import time
 
-with open(f"{os.getcwd()}\{sys.argv[1]}", "r") as file: # opening file from your working folder and adding arv from command line
+with open(sys.argv[1], "r") as file:  # opening file from your working folder
     data = file.read()
-encrypted = "" # intialization of encrypted value in morse code
-data=data.upper() # all leters to upper
-data=data.strip(" ") # this solves spaces in first line at start
-print(data)
-for i in range(0,len(data)):
-    if ord(data[i])>= 65 and ord(data[i]) <= 90: #check if char is letter
-        encrypted+=f"{md.MORSE_CODE_DICT[data[i]]} " # if yes we add encrypted value from dictionary
-    elif data[i]==" "and (ord(data[i+1])>= 65 and ord(data[i+1]) <= 90 )and i<len(data):   # check if current char is space and next is a letter
-        if encrypted[-1]=="\n": # checking situation "  a kot ma Ale", double space at new line is the problem
+encrypted = ""  # intialization of encrypted value in morse code
+data = data.upper()  # all leters to upper
+data = data.strip(" ")  # this solves spaces in first line at start, if there would be
+for i in range(0, len(data)):
+    if ord(data[i]) >= 65 and ord(data[i]) <= 90:  # check if char is letter
+        encrypted += f"{md.MORSE_CODE_DICT[data[i]]} "  # if yes we add encrypted value from dictionary
+    elif (data[i] == " "and (ord(data[i + 1]) >= 65 and ord(data[i + 1]) <= 90)):  # check if current char is space and next is a letter
+        if (encrypted[-1] == "\n"):  # checking situation "  a kot ma Ale", double space at new line is the problem
             pass
         else:
-            encrypted += "/ " # after checking all problem we add "/ "
-    elif data[i]=="\n": # for new line add new line
-        encrypted+="\n"
+            encrypted += "/ "  # after checking all problem we add "/ "
+    elif data[i] == "\n":  # for new line add new line
+        encrypted += "\n"
 print(encrypted)
-
